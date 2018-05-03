@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Diploma_Curator_Subsystem.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Diploma_Curator_Subsystem
 {
@@ -21,6 +23,7 @@ namespace Diploma_Curator_Subsystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<SubsystemContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc();
         }
 
