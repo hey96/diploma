@@ -8,10 +8,10 @@ namespace Diploma_Curator_Subsystem.Models
     public class Task
     {
         public int ID { get; set; }
-        public string title { get; set; }
-        public string description { get; set; }
-        public string alternatives { get; set; }
-        public string math_data { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string Alternatives { get; set; }
+        public string Math_data { get; set; }
         public int StatusID { get; set; }
         public int DomainID { get; set; }
 
