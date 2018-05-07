@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Diploma_Curator_Subsystem.Data;
 using Diploma_Curator_Subsystem.Models;
+using Diploma_Curator_Subsystem.Models.SubsystemViewModels;
 
 namespace Diploma_Curator_Subsystem.Controllers
 {
@@ -22,14 +23,39 @@ namespace Diploma_Curator_Subsystem.Controllers
         // GET: Users
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Users
-                  .Include(i => i.UserRoles)
-                    .ThenInclude(i => i.Role)
-                    .AsNoTracking()
-          .OrderBy(i => i.LastName)
-          .ToListAsync());
-            //return View(await _context.Users.ToListAsync());
-            //return View(user.UserRoles.ToList());//await _context.Users.Where(u => if (u.UserRoles.Where(ur => ur.RoleID.Equals(6))).ToListAsync());
+            var expertId = 6;
+            List<Models.User> filteredUsers = new List<Models.User>();
+            var users = await _context.Users
+                  .Include(u => u.UserRoles)
+                    .ThenInclude(u => u.Role)
+                  .Include(u => u.UserDomains)
+                    .ThenInclude(u => u.Domain)
+                .AsNoTracking()
+                .OrderBy(i => i.LastName)
+                .ToListAsync();
+            foreach(var user in users)
+            {
+                foreach(var userRole in user.UserRoles)
+                {
+                    if (userRole.RoleID == expertId)
+                    {
+                        filteredUsers.Add(user);
+                    }
+                }
+                
+            }
+            return View(filteredUsers);
+
+            //var viewModel = new UserIndexData();
+            //viewModel.Users = await _context.Users
+            //      .Include(u => u.UserRoles)
+            //        .ThenInclude(u => u.Role)
+            //      .Include(u => u.UserDomains)
+            //        .ThenInclude(u => u.Domain)
+            //    .AsNoTracking()
+            //    .OrderBy(u => u.LastName)
+            //    .ToListAsync();
+            //return View(viewModel);
         }
 
         // GET: Users/Details/5
