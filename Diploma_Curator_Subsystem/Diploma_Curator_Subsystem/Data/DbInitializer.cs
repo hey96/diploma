@@ -80,7 +80,14 @@ namespace Diploma_Curator_Subsystem.Data
                 new User{Name="Grigorii",LastName="Praskura",Email="gregorypraskura@hotmail.com", Password="12345"},
                 new User{Name="Ivan",LastName="Ivanov",Email="ivanov@ya.ru", Password="123"},
                 new User{Name="Petr",LastName="Petrov",Email="petrov@yandex.ru", Password="123"},
-                new User{Name="Sergey",LastName="Sidorov",Email="sidorov@yandex.ru", Password="123"}
+                new User{Name="Sergey",LastName="Sidorov",Email="sidorov@yandex.ru", Password="123"},
+                new User{Name="Dmitriy",LastName="Mikhailov",Email="mikhailov@yandex.ru", Password="123"},
+                new User{Name="Альяна",LastName="Матюшева",Email="alk-fifa@yandex.ru", Password="123"},
+                new User{Name="Григорий",LastName="Праскура",Email="gregorypraskura@hotmail.com", Password="12345"},
+                new User{Name="Иван",LastName="Иванов",Email="ivanov@ya.ru", Password="123"},
+                new User{Name="Петр",LastName="Петров",Email="petrov@yandex.ru", Password="123"},
+                new User{Name="Сергей",LastName="Сидоров",Email="sidorov@yandex.ru", Password="123"},
+                new User{Name="Дмитрий",LastName="Михайлов",Email="mikhailov@yandex.ru", Password="123"}
             };
             foreach (User u in users)
             {
@@ -96,8 +103,16 @@ namespace Diploma_Curator_Subsystem.Data
                 new UserRole{UserID=3,RoleID=6},
                 new UserRole{UserID=4,RoleID=6},
                 new UserRole{UserID=5,RoleID=6},
+                new UserRole{UserID=6,RoleID=6},
+                new UserRole{UserID=7,RoleID=6},
+                new UserRole{UserID=8,RoleID=6},
+                new UserRole{UserID=9,RoleID=6},
+                new UserRole{UserID=10,RoleID=6},
+                new UserRole{UserID=11,RoleID=6},
+                new UserRole{UserID=12,RoleID=6},
                 new UserRole{UserID=1,RoleID=5},
-                new UserRole{UserID=2,RoleID=4}
+                new UserRole{UserID=2,RoleID=4},
+                new UserRole{UserID=6,RoleID=4}
             };
             foreach (UserRole ur in userRoles)
             {
@@ -108,14 +123,21 @@ namespace Diploma_Curator_Subsystem.Data
             //UserDomain
             var userDomains = new UserDomain[]
             {
-                new UserDomain{UserID=1,DomainID=1,CompetitionCoef=0.78},
-                new UserDomain{UserID=2,DomainID=1,CompetitionCoef=0.88},
-                new UserDomain{UserID=3,DomainID=1,CompetitionCoef=0.72},
-                new UserDomain{UserID=4,DomainID=1,CompetitionCoef=0.68},
-                new UserDomain{UserID=5,DomainID=1,CompetitionCoef=0.64},
-                new UserDomain{UserID=3,DomainID=3,CompetitionCoef=0.79},
-                new UserDomain{UserID=4,DomainID=3,CompetitionCoef=0.81},
-                new UserDomain{UserID=5,DomainID=3,CompetitionCoef=0.92},
+                new UserDomain{UserID=1,DomainID=1,CompetitionCoef=0.83m},
+                new UserDomain{UserID=2,DomainID=1,CompetitionCoef=0.68m},
+                new UserDomain{UserID=3,DomainID=1,CompetitionCoef=0.76m},
+                new UserDomain{UserID=4,DomainID=1,CompetitionCoef=0.67m},
+                new UserDomain{UserID=5,DomainID=1,CompetitionCoef=0.71m},
+                new UserDomain{UserID=6,DomainID=1,CompetitionCoef=0.45m},
+                new UserDomain{UserID=7,DomainID=1,CompetitionCoef=0.58m},
+                new UserDomain{UserID=8,DomainID=1,CompetitionCoef=0.64m},
+                new UserDomain{UserID=9,DomainID=1,CompetitionCoef=0.42m},
+                new UserDomain{UserID=10,DomainID=1,CompetitionCoef=0.92m},
+                new UserDomain{UserID=11,DomainID=1,CompetitionCoef=0.87m},
+                new UserDomain{UserID=12,DomainID=1,CompetitionCoef=0.79m},
+                new UserDomain{UserID=3,DomainID=3,CompetitionCoef=0.79m},
+                new UserDomain{UserID=4,DomainID=3,CompetitionCoef=0.81m},
+                new UserDomain{UserID=5,DomainID=3,CompetitionCoef=0.92m},
             };
             foreach (UserDomain ud in userDomains)
             {

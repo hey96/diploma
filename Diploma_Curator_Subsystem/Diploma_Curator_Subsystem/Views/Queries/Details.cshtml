@@ -1,0 +1,83 @@
+﻿@*@model Diploma_Curator_Subsystem.Models.Query*@
+@model Diploma_Curator_Subsystem.Models.SubsystemViewModels.QueryIndexData
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Query</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Query.MaxNumExpert)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Query.MaxNumExpert)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Query.MinNumExpert)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Query.MinNumExpert)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Query.MinCompetitionCoef)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Query.MinCompetitionCoef)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Query.AvgCompetitionCoef)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Query.AvgCompetitionCoef)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Query.Created)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Query.Created)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Query.Result)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Query.Result)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Query.Task.Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Query.Task.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Users)
+        </dt>
+        <dd>
+            @{
+                foreach (var user in Model.Users)
+                {
+                    <p>
+                        @user.LastName @user.Name 
+                        @{
+                            foreach (var userdomain in user.UserDomains)
+                            {
+                                if (userdomain.DomainID == Model.Query.Task.DomainID)
+                                {
+                                    <span>Коэффициент компетентности - @userdomain.CompetitionCoef</span>
+                                }
+                            }
+                        }
+                    </p>
+                }
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Query.ID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

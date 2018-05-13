@@ -7,9 +7,10 @@ namespace Diploma_Curator_Subsystem.Models.SubsystemViewModels
 {
     public class UserIndexData
     {
-        public IEnumerable<User> Users { get; set; }
-        public IEnumerable<Role> Roles { get; set; }
-        public IEnumerable<Domain> Domains { get; set; }
-        public IEnumerable<UserRole> UserRoles { get; set; }
+        public ICollection<User> Users { get; set; }
+        public ICollection<Role> Roles { get; set; }
+        public ICollection<UserRole> UserRoles { get; set; }
+        public ICollection<Domain> Domains { get; set; }
+        public ICollection<UserDomain> UserDomains { get; set; }
     }
 }

@@ -23,39 +23,51 @@ namespace Diploma_Curator_Subsystem.Controllers
         // GET: Users
         public async Task<IActionResult> Index()
         {
-            var expertId = 6;
-            List<Models.User> filteredUsers = new List<Models.User>();
-            var users = await _context.Users
+            var viewModel = new UserIndexData();
+            var expertRole = _context.Roles.Where(r => r.Name == "Эксперт").SingleOrDefault();
+            var expertId = expertRole.ID;
+            viewModel.Users = await _context.UserRoles
+                  .Where(ur => ur.RoleID == expertId)
+                  .Select(ur => ur.User)
                   .Include(u => u.UserRoles)
-                    .ThenInclude(u => u.Role)
                   .Include(u => u.UserDomains)
-                    .ThenInclude(u => u.Domain)
-                .AsNoTracking()
-                .OrderBy(i => i.LastName)
                 .ToListAsync();
-            foreach(var user in users)
-            {
-                foreach(var userRole in user.UserRoles)
-                {
-                    if (userRole.RoleID == expertId)
-                    {
-                        filteredUsers.Add(user);
-                    }
-                }
-                
-            }
-            return View(filteredUsers);
+            viewModel.Roles = await _context.Roles.ToListAsync();
+            viewModel.Domains = await _context.Domains.ToListAsync();
+            return View(viewModel);
 
-            //var viewModel = new UserIndexData();
-            //viewModel.Users = await _context.Users
+            //var filteredUsers = await _context.Users
+            //    .Where(u => u.UserRoles.Any(ur => ur.RoleID == expertId))
+            //    .Include(u => u.UserRoles)
+            //    .ToListAsync();
+
+            //var filteredUsers = await _context.Users
+            //.SelectMany(u => u.UserRoles)
+            //.Where(ur => ur.RoleID == expertId)
+            //.Select(ur => ur.User)
+            //.Include(ur => ur.UserRoles)
+            //.ToListAsync();
+
+            //List<Models.User> filteredUsers = new List<Models.User>();
+            //var users = await _context.Users
             //      .Include(u => u.UserRoles)
             //        .ThenInclude(u => u.Role)
             //      .Include(u => u.UserDomains)
             //        .ThenInclude(u => u.Domain)
             //    .AsNoTracking()
-            //    .OrderBy(u => u.LastName)
+            //    .OrderBy(i => i.LastName)
             //    .ToListAsync();
-            //return View(viewModel);
+            //foreach(var user in users)
+            //{
+            //    foreach(var userRole in user.UserRoles)
+            //    {
+            //        if (userRole.RoleID == expertId)
+            //        {
+            //            filteredUsers.Add(user);
+            //        }
+            //    }
+            //}
+            //return View(filteredUsers);
         }
 
         // GET: Users/Details/5

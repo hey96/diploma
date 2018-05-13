@@ -18,6 +18,7 @@ namespace Diploma_Curator_Subsystem.Models
         public Status Status { get; set; }
         public Domain Domain { get; set; }
 
+        public ICollection<Query> Queries { get; set; }
         public ICollection<UserTask> UserTasks { get; set; }
     }
 }
