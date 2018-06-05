@@ -14,6 +14,7 @@ namespace Diploma_Curator_Subsystem.Controllers
     public class QueriesController : Controller
     {
         private readonly SubsystemContext _context;
+        int maxProjects = 2;
 
         public QueriesController(SubsystemContext context)
         {
@@ -65,7 +66,7 @@ namespace Diploma_Curator_Subsystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,MaxNumExpert,MinNumExpert,MinCompetitionCoef,AvgCompetitionCoef,Created,Result,TaskID")] Query query)
+        public async Task<IActionResult> Create([Bind("ID,MaxNumExpert,MinNumExpert,MinCompetitionCoef,AvgCompetitionCoef,RequiredDate,Step,Created,Result,TaskID")] Query query)
         {
             if (ModelState.IsValid)
             {
@@ -99,7 +100,7 @@ namespace Diploma_Curator_Subsystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,MaxNumExpert,MinNumExpert,MinCompetitionCoef,AvgCompetitionCoef,Created,Result,TaskID")] Query query)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,MaxNumExpert,MinNumExpert,MinCompetitionCoef,AvgCompetitionCoef,RequiredDate,Step,Created,Result,TaskID")] Query query)
         {
             if (id != query.ID)
             {
@@ -186,7 +187,7 @@ namespace Diploma_Curator_Subsystem.Controllers
             return "Impossible to distribute the experts group";
         }
 
-        public string DistributeFunc(int MaxNumExpert, int MinNumExpert, decimal? MinCompetitionCoef, decimal? AvgCompetitionCoef, int idDomain)
+        public string DistributeFunc(int MaxNumExpert, int MinNumExpert, decimal? MinCompetitionCoef, decimal? AvgCompetitionCoef, DateTime? RequiredDate, int? Step, int idDomain)
         {
             var viewModel = new UserIndexData();
             viewModel.Users = _context.UserDomains
@@ -230,7 +231,7 @@ namespace Diploma_Curator_Subsystem.Controllers
                   .ToList();
                 var sum = 0.0m;
                 var num = 0;
-                foreach(var e in E3.UserDomains)
+                foreach (var e in E3.UserDomains)
                 {
                     sum += e.CompetitionCoef;
                     num++;
@@ -252,12 +253,40 @@ namespace Diploma_Curator_Subsystem.Controllers
             }
 
             string result = "";
-            if ((MinCompetitionCoef == null) && (AvgCompetitionCoef == null)) {
+            if ((MinCompetitionCoef == null) && (AvgCompetitionCoef == null))
+            {
+                int[] idsUser = new int[viewModel.Users.Count];
+                var j = 0;
+                foreach (var user in viewModel.Users)
+                {
+                    idsUser[j] = user.ID;
+                    j++;
+                }
+                for (int k = 0; k < idsUser.Length; k++)
+                {
+                    var idUser = idsUser[k];
+                    var newViewModel = new UserIndexData();
+                    newViewModel.Tasks = _context.UserTasks
+                          .Where(ut => ut.UserID == idUser)
+                          .Select(ut => ut.Task)
+                          .Where(t => t.ExpirationDate > RequiredDate)
+                          .OrderBy(t => t.ExpirationDate)
+                        .ToList();
+                    var countProject = newViewModel.Tasks.Count;
+                    if (countProject >= maxProjects)
+                    {
+                        viewModel.Users.Remove(viewModel.Users.Where(u => u.ID == idUser).SingleOrDefault());
+                    }
+                }
                 result = ResultJson(viewModel.Users, MaxNumExpert, MinNumExpert);
-            } else if (MinCompetitionCoef != null && AvgCompetitionCoef == null) {
-                result =  ResultJson(E2.Users, MaxNumExpert, MinNumExpert);
-            } else if (MinCompetitionCoef != null && AvgCompetitionCoef != null) {
-                result =  ResultJson(E3.Users, MaxNumExpert, MinNumExpert);
+            }
+            else if (MinCompetitionCoef != null && AvgCompetitionCoef == null)
+            {
+                result = ResultJson(E2.Users, MaxNumExpert, MinNumExpert);
+            }
+            else if (MinCompetitionCoef != null && AvgCompetitionCoef != null)
+            {
+                result = ResultJson(E3.Users, MaxNumExpert, MinNumExpert);
             }
             return result;
         }
@@ -274,7 +303,7 @@ namespace Diploma_Curator_Subsystem.Controllers
             {
                 return NotFound();
             }
-            var result = DistributeFunc(query.MaxNumExpert, query.MinNumExpert, query.MinCompetitionCoef, query.AvgCompetitionCoef, query.Task.DomainID);
+            var result = DistributeFunc(query.MaxNumExpert, query.MinNumExpert, query.MinCompetitionCoef, query.AvgCompetitionCoef, query.RequiredDate, query.Step, query.Task.DomainID);
             query.Result = result;
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Details), new { id });

@@ -21,6 +21,7 @@ namespace Diploma_Curator_Subsystem.Data
             {
                 new Status{Name="Открыта"},
                 new Status{Name="Ожидает подбора группы от КЭС"},
+                new Status{Name="Проводится оценка экспертами"},
                 new Status{Name="Выполнена"}
             };
             foreach (Status s in statuses)
@@ -61,11 +62,11 @@ namespace Diploma_Curator_Subsystem.Data
             //Задачи
             var tasks = new Models.Task[]
             {
-                new Models.Task{Title="Выбор СУБД",Description="Необходимо выбрать систему управления базой данных для проекта",Alternatives="4 альтернативы", Math_data="123", StatusID=2, DomainID=1},
-                new Models.Task{Title="Выбор языка программирования",Description="Необходимо выбрать язык программирования для проекта",Alternatives="3 альтернативы", Math_data="123", StatusID=2, DomainID=1},
-                new Models.Task{Title="Выбор технологии строительства",Description="Необходимо выбрать технологию строительства дома",Alternatives="5 альтернативы", Math_data="123", StatusID=1, DomainID=2},
-                new Models.Task{Title="Выбор вида металла",Description="Необходимо выбрать вид металла для нового робота",Alternatives="6 альтернативы", Math_data="123", StatusID=2, DomainID=3},
-                new Models.Task{Title="Выбор материалов строительства",Description="Необходимо выбрать материалы для строительства дома",Alternatives="2 альтернативы", Math_data="123", StatusID=3, DomainID=2}
+                new Models.Task{Title="Выбор СУБД",Description="Необходимо выбрать систему управления базой данных для проекта",Alternatives="4 альтернативы", Math_data="123", ExpirationDate=DateTime.Parse("2018-06-13"), StatusID=2, DomainID=1},
+                new Models.Task{Title="Выбор языка программирования",Description="Необходимо выбрать язык программирования для проекта",Alternatives="3 альтернативы", Math_data="123", ExpirationDate=DateTime.Parse("2018-06-15"), StatusID=2, DomainID=1},
+                new Models.Task{Title="Выбор технологии строительства",Description="Необходимо выбрать технологию строительства дома",Alternatives="5 альтернативы", Math_data="123", ExpirationDate=DateTime.Parse("2018-06-17"), StatusID=1, DomainID=2},
+                new Models.Task{Title="Выбор вида металла",Description="Необходимо выбрать вид металла для нового робота",Alternatives="6 альтернативы", Math_data="123", ExpirationDate=DateTime.Parse("2018-06-25"), StatusID=2, DomainID=3},
+                new Models.Task{Title="Выбор материалов строительства",Description="Необходимо выбрать материалы для строительства дома",Alternatives="2 альтернативы", ExpirationDate=DateTime.Parse("2018-06-30"), Math_data="123", StatusID=3, DomainID=2}
             };
             foreach (Models.Task t in tasks)
             {
@@ -142,6 +143,18 @@ namespace Diploma_Curator_Subsystem.Data
             foreach (UserDomain ud in userDomains)
             {
                 context.UserDomains.Add(ud);
+            }
+            context.SaveChanges();
+
+            //UserTask
+            var userTasks = new UserTask[]
+            {
+                new UserTask{UserID=10,TaskID=2,RoleID=6, StatusID=3},
+                new UserTask{UserID=10,TaskID=3,RoleID=6, StatusID=3}
+            };
+            foreach (UserTask ut in userTasks)
+            {
+                context.UserTasks.Add(ut);
             }
             context.SaveChanges();
         }

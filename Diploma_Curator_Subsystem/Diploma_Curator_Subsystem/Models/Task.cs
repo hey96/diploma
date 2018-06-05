@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,6 +13,11 @@ namespace Diploma_Curator_Subsystem.Models
         public string Description { get; set; }
         public string Alternatives { get; set; }
         public string Math_data { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime ExpirationDate { get; set; }
+
         public int StatusID { get; set; }
         public int DomainID { get; set; }
 

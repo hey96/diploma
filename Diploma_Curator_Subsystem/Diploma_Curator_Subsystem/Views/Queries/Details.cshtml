@@ -36,6 +36,18 @@
             @Html.DisplayFor(model => model.Query.AvgCompetitionCoef)
         </dd>
         <dt>
+            @Html.DisplayNameFor(model => model.Query.RequiredDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Query.RequiredDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Query.Step)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Query.Step)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.Query.Created)
         </dt>
         <dd>
@@ -58,21 +70,21 @@
         </dt>
         <dd>
             @{
-                foreach (var user in Model.Users)
-                {
-                    <p>
-                        @user.LastName @user.Name 
-                        @{
-                            foreach (var userdomain in user.UserDomains)
-                            {
-                                if (userdomain.DomainID == Model.Query.Task.DomainID)
-                                {
-                                    <span>Коэффициент компетентности - @userdomain.CompetitionCoef</span>
-                                }
-                            }
+            foreach (var user in Model.Users)
+            {
+                <p>
+                    @user.LastName @user.Name
+                    @{
+                    foreach (var userdomain in user.UserDomains)
+                    {
+                        if (userdomain.DomainID == Model.Query.Task.DomainID)
+                        {
+                            <span>Коэффициент компетентности - @userdomain.CompetitionCoef</span>
                         }
-                    </p>
-                }
+                    }
+                    }
+                </p>
+            }
             }
         </dd>
     </dl>

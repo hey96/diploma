@@ -16,19 +16,8 @@ namespace Diploma_Curator_Subsystem.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UserRole>().HasKey(ur => new { ur.UserID, ur.RoleID });
-            modelBuilder.Entity<UserDomain>().HasKey(ur => new { ur.UserID, ur.DomainID });
-            //modelBuilder.Entity<UserTask>().HasKey(ur => new { ur.UserID, ur.TaskID });
-
-            //modelBuilder.Entity<Query>().Property(q => q.Created).HasDefaultValueSql("getdate()");
-
-            //modelBuilder.Entity<UserRole>()
-            //    .HasOne<User>(ur => ur.User)
-            //    .WithMany(u => u.UserRoles)
-            //    .HasForeignKey(ur => ur.UserID);
-            //modelBuilder.Entity<UserRole>()
-            //    .HasOne<Role>(ur => ur.Role)
-            //    .WithMany(u => u.UserRoles)
-            //    .HasForeignKey(ur => ur.RoleID);
+            modelBuilder.Entity<UserDomain>().HasKey(ud => new { ud.UserID, ud.DomainID });
+            modelBuilder.Entity<UserTask>().HasKey(ut => new { ut.UserID, ut.TaskID });
         }
 
         public DbSet<Domain> Domains { get; set; }

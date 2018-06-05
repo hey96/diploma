@@ -32,9 +32,6 @@ namespace Diploma_Curator_Subsystem.Controllers
                   .Include(t => t.Status)
                 .ToListAsync();
             return View(viewModel);
-
-            //var subsystemContext = _context.Tasks.Include(t => t.Domain).Include(t => t.Status);
-            //return View(await subsystemContext.ToListAsync());
         }
 
         // GET: Tasks/Details/5
@@ -70,7 +67,7 @@ namespace Diploma_Curator_Subsystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Title,Description,Alternatives,Math_data,StatusID,DomainID")] Models.Task task)
+        public async Task<IActionResult> Create([Bind("ID,Title,Description,Alternatives,Math_data,ExpirationDate,StatusID,DomainID")] Models.Task task)
         {
             if (ModelState.IsValid)
             {
@@ -106,7 +103,7 @@ namespace Diploma_Curator_Subsystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,Description,Alternatives,Math_data,StatusID,DomainID")] Models.Task task)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,Description,Alternatives,Math_data,ExpirationDate,StatusID,DomainID")] Models.Task task)
         {
             if (id != task.ID)
             {

@@ -9,10 +9,10 @@ namespace Diploma_Curator_Subsystem.Models
         public int ID { get; set; }
 
         [Required]
-        [Range(0, 10)]
+        [Range(0, 15)]
         public int MaxNumExpert { get; set; }
 
-        [Range(0, 10)]
+        [Range(0, 15)]
         public int MinNumExpert { get; set; }
 
         [Column(TypeName = "decimal(4, 3)")]
@@ -22,6 +22,14 @@ namespace Diploma_Curator_Subsystem.Models
         [Column(TypeName = "decimal(4, 3)")]
         [DisplayFormat(NullDisplayText = "Не задан")]
         public decimal ? AvgCompetitionCoef { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime RequiredDate { get; set; }
+
+        [Required]
+        [Range(0, 10)]
+        public int Step { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
