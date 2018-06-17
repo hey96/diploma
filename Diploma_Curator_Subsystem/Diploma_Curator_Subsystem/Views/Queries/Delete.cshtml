@@ -1,0 +1,118 @@
+﻿@*@model Diploma_Curator_Subsystem.Models.Query*@
+@model Diploma_Curator_Subsystem.Models.SubsystemViewModels.QueryIndexData
+
+@{
+    ViewData["Title"] = "Удаление";
+}
+
+<h2>Удаление</h2>
+
+<h3>Уверены, что хотите удалить этот запрос?</h3>
+<div>
+    <h4>Запрос</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Max экспертов
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Query.MaxNumExpert)
+        </dd>
+        <dt>
+            Min экспертов
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Query.MinNumExpert)
+        </dd>
+        <dt>
+            Min коэффициент компетентности эксперта в группе
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Query.MinCompetitionCoef)
+        </dd>
+        <dt>
+            Средний коэффициент компетентности эксперта в группе
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Query.AvgCompetitionCoef)
+        </dd>
+        <dt>
+            Требуемая дата
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Query.RequiredDate)
+        </dd>
+        <dt>
+            Шаг планирования
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Query.Step)
+        </dd>
+        <dt>
+            Max возможно смещенная дата
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Query.LastDate)
+        </dd>
+        <dt>
+            Задача
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Query.Task.Title)
+        </dd>
+        @{
+            if (ViewBag.IsResult == "true")
+            {
+                <dt>
+                    Эксперты
+                </dt>
+                <dd>
+                    @{
+                        if (Model.Users.Count != 0)
+                        {
+                            for (var i = 0; i < ViewBag.Sizes.Count; i++) //по всем вариантам
+                            {
+                                var num = ViewBag.Sizes[i];
+                                <div style="border:solid #dbd4d4 1px; margin-bottom: 10px;">
+                                    <p style="font-weight: bold; font-size: 18px;">@ViewBag.Dates[i].ToString("dd/MM/yyyy")</p>
+                                    @for (var j = 0; j < num; j++) //по элементам в варианте
+                                    {
+                                        foreach (var user in Model.Users)
+                                        {
+                                            var arr = ViewBag.Arrays[i];
+                                            if (user.ID == arr[j])
+                                            {
+                                                <p>
+                                                    @user.LastName @user.Name
+                                                    @{
+                                                        foreach (var userdomain in user.UserDomains)
+                                                        {
+                                                            if (userdomain.DomainID == Model.Query.Task.DomainID)
+                                                            {
+                                                                <span>Коэффициент компетентности - @userdomain.CompetitionCoef</span>
+                                                            }
+                                                        }
+                                                    }
+                                                </p>
+                                            }
+                                        }
+                                    }
+                                </div>
+                            }
+                        }
+                        else if (Model.Users.Count == 0)
+                        {
+                            <p>Не удалось подобрать экспертную группу по заданным параметрам</p>
+                        }
+                    }
+                </dd>
+            }
+        }
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Query.ID" />
+        <input type="submit" value="Удалить" class="btn btn-default" /> |
+        <a asp-action="Index">Вернуться к списку</a>
+    </form>
+</div>

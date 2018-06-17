@@ -1,0 +1,72 @@
+﻿@model Diploma_Curator_Subsystem.Models.Query
+
+@{
+    ViewData["Title"] = "Создание";
+}
+
+<h2>Создание</h2>
+
+<h4>Запрос</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MaxNumExpert" class="control-label">Max экспертов</label>
+                <input asp-for="MaxNumExpert" class="form-control" />
+                <span asp-validation-for="MaxNumExpert" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MinNumExpert" class="control-label">Min экспертов</label>
+                <input asp-for="MinNumExpert" class="form-control" />
+                <span asp-validation-for="MinNumExpert" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MinCompetitionCoef" class="control-label">Min коэффициент компетентности эксперта в группе</label>
+                <input asp-for="MinCompetitionCoef" class="form-control" />
+                <span asp-validation-for="MinCompetitionCoef" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AvgCompetitionCoef" class="control-label">Средний коэффициент компетентности эксперта в группе</label>
+                <input asp-for="AvgCompetitionCoef" class="form-control" />
+                <span asp-validation-for="AvgCompetitionCoef" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RequiredDate" class="control-label">Требуемая дата</label>
+                <input asp-for="RequiredDate" class="form-control" />
+                <span asp-validation-for="RequiredDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Step" class="control-label">Шаг планирования</label>
+                <input asp-for="Step" class="form-control" />
+                <span asp-validation-for="Step" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastDate" class="control-label">Max возможно смещенная дата</label>
+                <input asp-for="LastDate" class="form-control"/>
+                <span asp-validation-for="LastDate" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="display:none;">
+                <label asp-for="Result" class="control-label">Результат</label>
+                <input asp-for="Result" class="form-control" />
+                <span asp-validation-for="Result" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Task" class="control-label">Задача</label>
+                <select asp-for="TaskID" class="form-control" asp-items="ViewBag.TaskID"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Создать" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Вернуться к списку</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

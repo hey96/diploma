@@ -1,0 +1,60 @@
+﻿@model Diploma_Curator_Subsystem.Models.Task
+
+@{
+    ViewData["Title"] = "Подробно";
+}
+
+<h2>Подробно</h2>
+
+<div>
+    <h4>Задача</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Название
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt>
+            Описание
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            Альтернативы
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Alternatives)
+        </dd>
+        <dt>
+            Дата создания
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreatedAt)
+        </dd>
+        <dt>
+            Дата окончания
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ExpirationDate)
+        </dd>
+        <dt>
+            Предметная область
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Domain.Name)
+        </dd>
+        <dt>
+            Статус
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Status.Name)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ID">Редактировать</a> |
+    <a asp-action="Index">Вернуться к списку</a>
+</div>

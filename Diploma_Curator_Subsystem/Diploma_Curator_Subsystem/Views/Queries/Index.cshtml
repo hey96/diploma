@@ -1,0 +1,96 @@
+﻿@model IEnumerable<Diploma_Curator_Subsystem.Models.Query>
+
+@{
+    ViewData["Title"] = "Запросы";
+}
+
+<h2>Запросы</h2>
+
+<p>
+    <a asp-action="Create">Создать</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Max экспертов
+            </th>
+            <th>
+                Min экспертов
+            </th>
+            <th>
+                Min коэффициент компетентности эксперта в группе
+            </th>
+            <th>
+                Средний коэффициент компетентности эксперта в группе
+            </th>
+            <th>
+                Требуемая дата
+            </th>
+            <th>
+                Шаг планирования
+            </th>
+            <th>
+                Max возможно смещенная дата
+            </th>
+            <th>
+                Результат
+            </th>
+            <th>
+                Название задачи
+            </th>
+            <th>
+                Предметная область
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxNumExpert)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MinNumExpert)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MinCompetitionCoef)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AvgCompetitionCoef)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RequiredDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Step)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastDate)
+            </td>
+            <td>
+                @if (item.Result != null)
+                {
+                    <a asp-action="Details" asp-route-id="@item.ID">Подробно</a>
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.Result)
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Task.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Task.Domain.Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Редактировать</a>
+                <a asp-action="Delete" asp-route-id="@item.ID">Удалить</a>
+                <a asp-action="Distribute" asp-route-id="@item.ID">Подобрать экспертов</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
