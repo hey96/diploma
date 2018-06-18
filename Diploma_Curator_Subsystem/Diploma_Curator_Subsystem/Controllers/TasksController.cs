@@ -36,7 +36,7 @@ namespace Diploma_Curator_Subsystem.Controllers
             return View(viewModel);
         }
 
-        // GET: Tasks/Details/5
+        /*// GET: Tasks/Details/5
         [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
@@ -173,7 +173,7 @@ namespace Diploma_Curator_Subsystem.Controllers
             _context.Tasks.Remove(task);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
+        }*/
 
         private bool TaskExists(int id)
         {

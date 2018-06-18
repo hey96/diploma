@@ -4,18 +4,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Diploma_Curator_Subsystem.Models
 {
-    [Table("Query")]
+    [Table("queries")]
     public class Query
     {
         [Column("id")]
         public int ID { get; set; }
 
-        [Column("max_num_experts")]
+        [Column("max_num_expert")]
         [Required]
         [Range(0, 15)]
         public int MaxNumExpert { get; set; }
 
-        [Column("min_num_experts")]
+        [Column("min_num_expert")]
         [Required]
         [Range(0, 15)]
         public int MinNumExpert { get; set; }
@@ -48,6 +48,7 @@ namespace Diploma_Curator_Subsystem.Models
         [DisplayFormat(NullDisplayText = "Не вычислен")]
         public string Result { get; set; }
 
+        [Column("task_id")]
         public int TaskID { get; set; }
         public Task Task { get; set; }
     }

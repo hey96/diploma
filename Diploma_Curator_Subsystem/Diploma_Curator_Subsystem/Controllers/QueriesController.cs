@@ -169,6 +169,12 @@ namespace Diploma_Curator_Subsystem.Controllers
                     }
                     var result = DistributeFunc(queryForUpdateResult.MaxNumExpert, queryForUpdateResult.MinNumExpert, queryForUpdateResult.MinCompetitionCoef, queryForUpdateResult.AvgCompetitionCoef, queryForUpdateResult.RequiredDate, queryForUpdateResult.Step, queryForUpdateResult.LastDate, queryForUpdateResult.Task.DomainID);
                     queryForUpdateResult.Result = result;
+
+                    var taskStatus = _context.Statuses.Where(r => r.Name == "Формирование экспертной группы").SingleOrDefault();
+                    var taskStatusId = taskStatus.ID;
+                    var task = await _context.Tasks.SingleOrDefaultAsync(t => t.ID == queryForUpdateResult.TaskID);
+                    task.StatusID = taskStatusId;
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -506,6 +512,12 @@ namespace Diploma_Curator_Subsystem.Controllers
             }
             var result = DistributeFunc(query.MaxNumExpert, query.MinNumExpert, query.MinCompetitionCoef, query.AvgCompetitionCoef, query.RequiredDate, query.Step, query.LastDate, query.Task.DomainID);
             query.Result = result;
+
+            var taskStatus = _context.Statuses.Where(r => r.Name == "Формирование экспертной группы").SingleOrDefault();
+            var taskStatusId = taskStatus.ID;
+            var task = await _context.Tasks.SingleOrDefaultAsync(t => t.ID == query.TaskID);
+            task.StatusID = taskStatusId;
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Details), new { id });
         }

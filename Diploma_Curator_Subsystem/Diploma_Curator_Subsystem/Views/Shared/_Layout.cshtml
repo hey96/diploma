@@ -34,6 +34,16 @@
                     <li><a asp-area="" asp-controller="Tasks" asp-action="Index">Задачи</a></li>
                     <li><a asp-area="" asp-controller="Queries" asp-action="Index">Запросы</a></li>
                 </ul>
+                <ul class="nav navbar-nav" style="float: right !important;">
+                    @if (!ViewContext.HttpContext.User.IsInRole("admin"))
+                    {
+                        <li><a asp-area="" asp-controller="Account" asp-action="Login">Войти</a></li>
+                    }
+                    else if (ViewContext.HttpContext.User.IsInRole("admin"))
+                    {
+                        <li><a asp-area="" asp-controller="Account" asp-action="Logout">Выйти</a></li>
+                    }
+                </ul>
             </div>
         </div>
     </nav>

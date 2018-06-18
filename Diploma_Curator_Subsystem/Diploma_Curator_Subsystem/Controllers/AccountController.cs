@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Diploma_Curator_Subsystem.Data;
 using System;
+using Diploma_Curator_Subsystem.Models.SubsystemViewModels;
+using System.Linq;
 
 namespace Diploma_Curator_Subsystem.Controllers
 {
@@ -32,12 +34,18 @@ namespace Diploma_Curator_Subsystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
+                var expertRole = _context.Roles.Where(r => r.Name == "Куратор экспертного сообщества").SingleOrDefault();
+                var expertId = expertRole.ID;
+                User user = await _context.UserRoles
+                      .Where(ur => ur.RoleID == expertId)
+                      .Select(ur => ur.User)
+                      .FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
                 if (user != null)
                 {
                     var claims = new List<Claim>
                     {
-                        new Claim(ClaimTypes.Name, user.Email)
+                        new Claim(ClaimTypes.Name, user.Email),
+                        new Claim(ClaimTypes.Role, "admin")
                     };
                     ClaimsIdentity userIdentity = new ClaimsIdentity(claims, "login");
                     ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
@@ -45,7 +53,7 @@ namespace Diploma_Curator_Subsystem.Controllers
                     await HttpContext.SignInAsync(principal);
                     return RedirectToAction("Index", "Users");
                 }
-                ModelState.AddModelError("", "Некорректные логин и(или) пароль");
+                ModelState.AddModelError("", "Некорректные логин и(или) пароль, или Вы не являетесь пользователем с ролью \"Куратор экспертного сообщества\".");
             }
             return View(model);
         }
@@ -53,7 +61,7 @@ namespace Diploma_Curator_Subsystem.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();
-            return RedirectToAction("Home", "Index");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

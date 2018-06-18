@@ -21,6 +21,7 @@ namespace Diploma_Curator_Subsystem.Data
             {
                 new Status{Name="Открыта"},
                 new Status{Name="Ожидает подбора группы от КЭС"},
+                new Status{Name="Формирование экспертной группы"},
                 new Status{Name="Проводится оценка экспертами"},
                 new Status{Name="Выполнена"}
             };
@@ -62,9 +63,9 @@ namespace Diploma_Curator_Subsystem.Data
             //Задачи
             var tasks = new Models.Task[]
             {
-                new Models.Task{Title="Выбор СУБД",Description="Необходимо выбрать систему управления базой данных для проекта",Alternatives="4 альтернативы", Math_data="123", CreatedAt=DateTime.Parse("2018-06-8"), ExpirationDate=DateTime.Parse("2018-06-13"), StatusID=2, DomainID=1},
+                new Models.Task{Title="Выбор СУБД",Description="Необходимо выбрать систему управления базой данных для проекта",Alternatives="4 альтернативы", Math_data="123", CreatedAt=DateTime.Parse("2018-06-8"), ExpirationDate=DateTime.Parse("2018-06-23"), StatusID=2, DomainID=1},
                 new Models.Task{Title="Выбор языка программирования",Description="Необходимо выбрать язык программирования для проекта",Alternatives="3 альтернативы", Math_data="123", CreatedAt=DateTime.Parse("2018-06-12"), ExpirationDate=DateTime.Parse("2018-06-15"), StatusID=2, DomainID=1},
-                new Models.Task{Title="Выбор технологии строительства",Description="Необходимо выбрать технологию строительства дома",Alternatives="5 альтернативы", Math_data="123", CreatedAt=DateTime.Parse("2018-06-11"), ExpirationDate=DateTime.Parse("2018-06-17"), StatusID=1, DomainID=2},
+                new Models.Task{Title="Выбор технологии строительства",Description="Необходимо выбрать технологию строительства дома",Alternatives="5 альтернативы", Math_data="123", CreatedAt=DateTime.Parse("2018-06-11"), ExpirationDate=DateTime.Parse("2018-06-27"), StatusID=1, DomainID=2},
                 new Models.Task{Title="Выбор вида металла",Description="Необходимо выбрать вид металла для нового робота",Alternatives="6 альтернативы", Math_data="123", CreatedAt=DateTime.Parse("2018-06-01"), ExpirationDate=DateTime.Parse("2018-06-25"), StatusID=2, DomainID=3},
                 new Models.Task{Title="Выбор материалов строительства",Description="Необходимо выбрать материалы для строительства дома",Alternatives="2 альтернативы", CreatedAt=DateTime.Parse("2018-06-10"), ExpirationDate=DateTime.Parse("2018-06-30"), Math_data="123", StatusID=3, DomainID=2}
             };
@@ -134,6 +135,7 @@ namespace Diploma_Curator_Subsystem.Data
                 new UserDomain{UserID=8,DomainID=1,CompetitionCoef=0.64m},
                 new UserDomain{UserID=9,DomainID=1,CompetitionCoef=0.42m},
                 new UserDomain{UserID=10,DomainID=1,CompetitionCoef=0.92m},
+                new UserDomain{UserID=10,DomainID=2,CompetitionCoef=0.52m},
                 new UserDomain{UserID=11,DomainID=1,CompetitionCoef=0.87m},
                 new UserDomain{UserID=12,DomainID=1,CompetitionCoef=0.79m},
                 new UserDomain{UserID=3,DomainID=3,CompetitionCoef=0.79m},

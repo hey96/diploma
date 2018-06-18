@@ -14,5 +14,6 @@ namespace Diploma_Curator_Subsystem.Models.SubsystemViewModels
         public ICollection<UserDomain> UserDomains { get; set; }
         public ICollection<Task> Tasks { get; set; }
         public ICollection<UserTask> UserTasks { get; set; }
+        public ICollection<Status> Statuses { get; set; }
     }
 }

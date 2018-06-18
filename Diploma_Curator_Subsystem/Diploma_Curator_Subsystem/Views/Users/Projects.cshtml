@@ -1,0 +1,83 @@
+﻿@model Diploma_Curator_Subsystem.Models.SubsystemViewModels.UserIndexData
+
+@{
+    ViewData["Title"] = "Проекты";
+}
+
+<h2>Проекты</h2>
+@{ var i = 0;
+    if (Model.Users.Count == 0)
+    {
+        <p>В настоящее время активных проектов у эксперта нет.</p>
+    }
+}
+@foreach (var item in Model.Users)
+{
+    if (i == 0)
+    {
+        <div>
+            <h4>Эксперт</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    Имя
+                </dt>
+                <dd>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </dd>
+                <dt>
+                    Фамилия
+                </dt>
+                <dd>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </dd>
+                <dt>
+                    Email
+                </dt>
+                <dd>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </dd>
+                <dt>
+                    ПО и компетентность
+                </dt>
+                <dd>
+                    @{
+                        foreach (var userDomain in item.UserDomains)
+                        {
+                            @userDomain.Domain.Name @: - @userDomain.CompetitionCoef<br />
+                        }
+                    }
+                </dd>
+            </dl>
+            <div>
+                @foreach (var userTask in item.UserTasks)
+                {
+                    if (userTask.Task.CreatedAt < DateTime.Now && DateTime.Now < userTask.Task.ExpirationDate)
+                    {
+                    <div>
+                        <p class="bg-success" style="font-size: 16px; font-weight: bold;">
+                            Текущие проекты
+                        </p>
+                        <ul>
+                            @{
+                            <li>
+                                Название: @userTask.Task.Title <br />
+                                Описание: @userTask.Task.Description <br />
+                                Статус: @userTask.Task.Status.Name <br />
+                                Дата создания: @userTask.Task.CreatedAt.ToString("dd/MM/yyyy") <br />
+                                Предполагаемая дата завершения: @userTask.Task.ExpirationDate.ToString("dd/MM/yyyy") <br />
+                                ПО: @userTask.Task.Domain.Name
+                            </li>
+                            }
+                        </ul>
+                    </div>
+                    }
+                }
+            </div>
+        </div>
+        <div>
+            <a asp-action="Index">Вернуться к списку</a>
+        </div>
+    }
+    i++;
+}

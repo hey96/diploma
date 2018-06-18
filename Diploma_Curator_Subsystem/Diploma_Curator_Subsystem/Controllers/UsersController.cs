@@ -74,6 +74,33 @@ namespace Diploma_Curator_Subsystem.Controllers
 
         // GET: Users/Details/5
         [Authorize]
+        public async Task<IActionResult> Projects(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var viewModel = new UserIndexData();
+            viewModel.Users = await _context.UserTasks
+                  .Where(ut => ut.UserID == id)
+                  .Select(ut => ut.User)
+                  .Include(u => u.UserDomains)
+                  .Include(u => u.UserTasks)
+                .ToListAsync();
+            viewModel.Domains = await _context.Domains.ToListAsync();
+            viewModel.Tasks = await _context.Tasks.ToListAsync();
+            viewModel.Statuses = await _context.Statuses.ToListAsync();
+        
+            if (viewModel.Users == null)
+            {
+                return NotFound();
+            }
+
+            return View(viewModel);
+        }
+
+        /*// GET: Users/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -114,7 +141,7 @@ namespace Diploma_Curator_Subsystem.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,LastName,Email,Password")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,LastName,Email")] User user)
         {
             if (id != user.ID)
             {
@@ -173,7 +200,7 @@ namespace Diploma_Curator_Subsystem.Controllers
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
+        }*/
 
         private bool UserExists(int id)
         {
