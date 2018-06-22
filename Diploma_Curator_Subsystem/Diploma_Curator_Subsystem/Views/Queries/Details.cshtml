@@ -11,107 +11,153 @@
     <h4>Запрос</h4>
     <hr />
     <div class="row">
-        <div class="col-md-12">
-            <dl class="dl-horizontal">
-                <dt>
-                    Max экспертов
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Query.MaxNumExpert)
-                </dd>
-                <dt>
-                    Min экспертов
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Query.MinNumExpert)
-                </dd>
-                <dt>
-                    Min коэффициент компетентности эксперта в группе
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Query.MinCompetitionCoef)
-                </dd>
-                <dt>
-                    Средний коэффициент компетентности эксперта в группе
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Query.AvgCompetitionCoef)
-                </dd>
-                <dt>
-                    Требуемая дата
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Query.RequiredDate)
-                </dd>
-                <dt>
-                    Шаг планирования
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Query.Step)
-                </dd>
-                <dt>
-                    Max возможно смещенная дата
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Query.LastDate)
-                </dd>
-                <dt>
-                    Задача
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Query.Task.Title)
-                </dd>
-                @{
-                    if (ViewBag.IsResult == "true")
-                    {
-                        <dt>
-                            Эксперты
-                        </dt>
-                        <dd>
-                            @{
-                                if (Model.Users.Count != 0)
-                                {
-                                    for (var i = 0; i < ViewBag.Sizes.Count; i++) //по всем вариантам
-                                    {
-                                        var num = ViewBag.Sizes[i];
-                                        <div style="border:solid #dbd4d4 1px; margin-bottom: 10px;">
-                                            <p style="font-weight: bold; font-size: 18px;">@ViewBag.Dates[i].ToString("dd/MM/yyyy")</p>
-                                            @for (var j = 0; j < num; j++) //по элементам в варианте
-                                            {
-                                                foreach (var user in Model.Users)
-                                                {
-                                                    var arr = ViewBag.Arrays[i];
-                                                    if (user.ID == arr[j])
-                                                    {
-                                                        <p>
-                                                            @user.LastName @user.Name
-                                                            @{
-                                                                foreach (var userdomain in user.UserDomains)
-                                                                {
-                                                                    if (userdomain.DomainID == Model.Query.Task.DomainID)
-                                                                    {
-                                                                        <span>Коэффициент компетентности - @userdomain.CompetitionCoef</span>
-                                                                    }
-                                                                }
-                                                            }
-                                                        </p>
-                                                    }
-                                                }
-                                            }
-                                        </div>
-                                    }
-                                }
-                                else if (Model.Users.Count == 0)
-                                {
-                                    <p>Не удалось подобрать экспертную группу по заданным параметрам</p>
-                                }
-                            }
-                        </dd>
-                    }
-                }
-            </dl>
+        <div class="col-md-5 text-right">
+            <span style="font-weight: bold;">
+                Max экспертов
+            </span>
+        </div>
+        <div class="col-md-7">
+            <span>
+                @Html.DisplayFor(model => model.Query.MaxNumExpert)
+            </span>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-5 text-right">
+            <span style="font-weight: bold;">
+                Min экспертов
+            </span>
+        </div>
+        <div class="col-md-7">
+            <span>
+                @Html.DisplayFor(model => model.Query.MinNumExpert)
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5 text-right">
+            <span style="font-weight: bold;">
+                Min коэффициент компетентности эксперта в группе
+            </span>
+        </div>
+        <div class="col-md-7">
+            <span>
+                @Html.DisplayFor(model => model.Query.MinCompetitionCoef)
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5 text-right">
+            <span style="font-weight: bold;">
+                Средний коэффициент компетентности эксперта в группе
+            </span>
+        </div>
+        <div class="col-md-7">
+            <span>
+                @Html.DisplayFor(model => model.Query.AvgCompetitionCoef)
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5 text-right">
+            <span style="font-weight: bold;">
+                Требуемая дата
+            </span>
+        </div>
+        <div class="col-md-7">
+            <span>
+                @Html.DisplayFor(model => model.Query.RequiredDate)
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5 text-right">
+            <span style="font-weight: bold;">
+                Шаг планирования
+            </span>
+        </div>
+        <div class="col-md-7">
+            <span>
+                @Html.DisplayFor(model => model.Query.Step)
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5 text-right">
+            <span style="font-weight: bold;">
+                Max возможно смещенная дата
+            </span>
+        </div>
+        <div class="col-md-7">
+            <span>
+                @Html.DisplayFor(model => model.Query.LastDate)
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5 text-right">
+            <span style="font-weight: bold;">
+                Задача
+            </span>
+        </div>
+        <div class="col-md-7">
+            <span>
+                @Html.DisplayFor(model => model.Query.Task.Title)
+            </span>
+        </div>
+    </div>
+    @{
+        if (ViewBag.IsResult == "true")
+        {
+            <div class="row">
+                <div class="col-md-5 text-right">
+                    <span style="font-weight: bold;">
+                        Эксперты
+                    </span>
+                </div>
+                <div class="col-md-7">
+                    @{
+                        if (Model.Users.Count != 0)
+                        {
+                            for (var i = 0; i < ViewBag.Sizes.Count; i++) //по всем вариантам
+                            {
+                                var num = ViewBag.Sizes[i];
+                                <div style="border:solid #dbd4d4 1px; margin-bottom: 10px;">
+                                    <p style="font-weight: bold; font-size: 18px;">@ViewBag.Dates[i].ToString("dd/MM/yyyy")</p>
+                                    @for (var j = 0; j < num; j++) //по элементам в варианте
+                                    {
+                                        foreach (var user in Model.Users)
+                                        {
+                                            var arr = ViewBag.Arrays[i];
+                                            if (user.ID == arr[j])
+                                            {
+                                                <p>
+                                                    @user.LastName @user.Name
+                                                    @{
+                                                        foreach (var userdomain in user.UserDomains)
+                                                        {
+                                                            if (userdomain.DomainID == Model.Query.Task.DomainID)
+                                                            {
+                                                                <span>Коэффициент компетентности - @userdomain.CompetitionCoef</span>
+                                                            }
+                                                        }
+                                                    }
+                                                </p>
+                                            }
+                                        }
+                                    }
+                                </div>
+                            }
+                        }
+                        else if (Model.Users.Count == 0)
+                        {
+                            <p>Не удалось подобрать экспертную группу по заданным параметрам</p>
+                        }
+                    }
+                </div>
+            </div>
+        }
+    }
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Query.ID">Редактировать</a> |
